@@ -1,0 +1,68 @@
+Test transform related generators
+=================================
+
+    >>> import os
+    >>> modelpath = os.path.sep.join([datadir, 'examplegg.uml'])
+    >>> profilepath = os.path.sep.join([datadir, 'pyegg.profile.uml'])
+  
+    >>> from zope.component import getUtility
+    >>> from agx.core.interfaces import ITransform
+    >>> from agx.core import Processor
+    >>> transform = getUtility(ITransform, name="xmi2uml")
+    >>> processor = Processor('xmi2uml')
+    >>> xmi = transform.source([modelpath, profilepath])
+    >>> uml = processor(transform.source([modelpath, profilepath]),
+    ...                 transform.target('Model'))
+    >>> uml
+    <Model object 'Model' at ...>
+  
+    >>> from agx.core import token
+    >>> tok = token('stereotypedefinitions', False)
+    >>> tok.defs
+    {'pyegg': {'profile': 'pyegg', 'id': '...', 'name': 'pyegg'}, 
+    'DecoratedClass': {'profile': 'pyegg', 'id': '...', 'name': 'DecoratedClass'}}
+  
+    >>> uml.printtree()
+    <class 'agx.io.uml.core.Model'>: Model
+      <class 'agx.io.uml.core.Profile'>: pyegg
+      <class 'agx.io.uml.core.Datatype'>: Boolean
+      <class 'agx.io.uml.core.Datatype'>: String
+      <class 'agx.io.uml.core.Datatype'>: UnlimitedNatural
+      <class 'agx.io.uml.core.Datatype'>: Integer
+      <class 'agx.io.uml.core.Package'>: example.agx.egg
+        <class 'agx.io.uml.core.Package'>: mypackage
+          <class 'agx.io.uml.classes.Class'>: MyClass
+            <class 'agx.io.uml.classes.Property'>: myattribute1
+            <class 'agx.io.uml.classes.Operation'>: operation
+            <class 'agx.io.uml.classes.Operation'>: operation1
+              <class 'agx.io.uml.classes.Parameter'>: ...
+          <class 'agx.io.uml.core.Datatype'>: DataTypeInPkg
+          <class 'agx.io.uml.core.Package'>: browser
+            <class 'agx.io.uml.classes.Class'>: YourClass
+              <class 'agx.io.uml.classes.Property'>: yourattr
+              <class 'agx.io.uml.core.Stereotype'>: DecoratedClass
+                <class 'agx.io.uml.core.TaggedValue'>: decorator
+        <class 'agx.io.uml.core.Stereotype'>: pyegg
+      <class 'agx.io.uml.core.Datatype'>: MyFancyDatatype
+      <class 'agx.io.uml.core.Package'>: myassociations
+        <class 'agx.io.uml.classes.Class'>: Klass1
+        <class 'agx.io.uml.classes.Class'>: Klass2
+        <class 'agx.io.uml.classes.Class'>: Klass1_1
+          <class 'agx.io.uml.classes.Generalization'>: ...
+          <class 'agx.io.uml.classes.AssociationEnd'>: dst
+        <class 'agx.io.uml.classes.Class'>: Klass4
+          <class 'agx.io.uml.classes.InterfaceRealization'>: ...
+        <class 'agx.io.uml.classes.Interface'>: Interface
+        <class 'agx.io.uml.classes.Association'>: ...
+          <class 'agx.io.uml.classes.AssociationEnd'>: src
+        <class 'agx.io.uml.classes.Association'>: ...
+          <class 'agx.io.uml.classes.AssociationEnd'>: src
+          <class 'agx.io.uml.classes.AssociationEnd'>: dst
+        <class 'agx.io.uml.classes.Association'>: ...
+          <class 'agx.io.uml.classes.AssociationEnd'>: src
+          <class 'agx.io.uml.classes.AssociationEnd'>: dst
+        <class 'agx.io.uml.classes.Association'>: ...
+          <class 'agx.io.uml.classes.AssociationEnd'>: src
+          <class 'agx.io.uml.classes.AssociationEnd'>: dst
+        <class 'agx.io.uml.classes.Dependency'>: ...
+  
