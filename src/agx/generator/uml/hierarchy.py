@@ -3,11 +3,11 @@
 
 from agx.core import handler
 from agx.core import token
-from agx.io.uml.core import (
+from node.ext.uml.core import (
     Package,
     Datatype,
 )
-from agx.io.uml.classes import (
+from node.ext.uml.classes import (
     Class,
     Interface,
     Association,

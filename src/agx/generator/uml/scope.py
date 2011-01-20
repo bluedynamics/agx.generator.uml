@@ -6,7 +6,7 @@ from zope.interface import implements
 from zope.component.interfaces import ComponentLookupError
 from agx.core import token
 from agx.core import Scope
-from agx.io.xml.interfaces import IXMLNode
+from node.ext.xml.interfaces import IXMLNode
 from interfaces import IXMLScope
 
 class XMLScope(Scope):

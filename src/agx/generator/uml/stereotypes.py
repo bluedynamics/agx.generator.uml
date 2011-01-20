@@ -3,8 +3,8 @@
 
 from agx.core import handler
 from agx.core import token
-from agx.io.uml.core import Stereotype
-from agx.io.uml.core import TaggedValue
+from node.ext.uml.core import Stereotype
+from node.ext.uml.core import TaggedValue
 from configure import registerStereotypeScope
 
 registerStereotypeScope('stereotype', 'xmi2uml')

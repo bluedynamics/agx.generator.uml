@@ -3,8 +3,8 @@
 
 from agx.core import handler
 from agx.core import token
-from agx.io.uml.core import INFINITE
-from agx.io.uml.classes import (
+from node.ext.uml.core import INFINITE
+from node.ext.uml.classes import (
     Property,
     Operation,
     Parameter,
