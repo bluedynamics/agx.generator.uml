@@ -2,7 +2,7 @@
 # GNU General Public License Version 2
 
 from zope.interface import Attribute
-from zodict.interfaces import INode
+from node.interfaces import INode
 from agx.core.interfaces import IScope
 
 class IXMLScope(IScope):
