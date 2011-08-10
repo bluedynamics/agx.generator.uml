@@ -14,7 +14,5 @@ def isprofilemember(node):
     return False
 
 def assignxmiprops(node,source):
-    import pdb;pdb.set_trace()
     node.xminame=source.attributes['name']
-        
-#    node.xmiid=source.attributes['xmi:id']
+    node.xmiid=source.attributes['{http://schema.omg.org/spec/XMI/2.1}id']
