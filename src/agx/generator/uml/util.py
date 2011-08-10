@@ -12,3 +12,11 @@ def isprofilemember(node):
             return True
         node = node.__parent__
     return False
+
+def assignxmiprops(node,source):
+    try:
+        node.xminame=source.attributes['name']
+    except:
+        import pdb;pdb.set_trace()
+        
+#    node.xmiid=source.attributes['xmi:id']

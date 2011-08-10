@@ -14,7 +14,7 @@ from node.ext.uml.classes import (
 )
 from agx.transform.xmi2uml.flavours import XMI2_1
 from configure import registerXMIScope
-from util import isprofilemember
+from util import isprofilemember, assignxmiprops
 
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('package', 'xmi2uml', tags, 'uml:Package')
@@ -24,6 +24,7 @@ def package(self, source, target):
     """Create packages.
     """
     package = Package()
+    assignxmiprops(package,source)
     target.anchor[source.attributes['name']] = package
     target.finalize(source, package)
 
@@ -35,6 +36,7 @@ def class_(self, source, target):
     """Create classes.
     """
     class_ = Class()
+    assignxmiprops(class_,source)
     target.anchor[source.attributes['name']] = class_
     target.finalize(source, class_)
 
@@ -46,6 +48,8 @@ def interface(self, source, target):
     """Create interfaces.
     """
     interface = Interface()
+    assignxmiprops(interface,source)
+
     target.anchor[source.attributes['name']] = interface
     target.finalize(source, interface)
 
@@ -87,5 +91,6 @@ def association(self, source, target):
     if isprofilemember(source):
         return
     association = Association()
+    assignxmiprops(association,source)
     target.anchor[str(association.uuid)] = association
     target.finalize(source, association)

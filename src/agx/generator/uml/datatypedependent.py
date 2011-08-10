@@ -16,7 +16,7 @@ from node.ext.uml.classes import (
 from agx.transform.xmi2uml.flavours import XMI2_1
 from configure import registerXMLScope
 from configure import registerXMIScope
-from util import isprofilemember
+from util import isprofilemember, assignxmiprops
 from pdb import Pdb
 
 @handler('anchorpackage', 'xmi2uml',
@@ -55,6 +55,8 @@ def property(self, source, target):
         tok = token('primitivetypemapping', False)
         type = target.anchor.node(tok.types[name])
     property = Property()
+    assignxmiprops(property,source)
+
     property.type = type
     target.anchor[source.attributes['name']] = property
     target.finalize(source, property)
@@ -68,6 +70,7 @@ def operation(self, source, target):
     """Create operation.
     """
     operation = Operation()
+    assignxmiprops(operation,source)
     target.anchor[source.attributes['name']] = operation
     target.finalize(source, operation)
 
@@ -105,6 +108,7 @@ def ownedend(self, source, target):
     associationuuid = tok.uuids[oe_source.uuid]
     association = target.anchor.node(associationuuid)
     associationend = AssociationEnd()
+    assignxmiprops(associationend,source)
     associationend.association = association
     cla_source = source.refindex[source.attributes['type']]
     classuuid = tok.uuids[cla_source.uuid]
@@ -135,6 +139,7 @@ def memberend(self, source, target):
     tok = token('sourcetotargetuuidmapping', False)
     associationuuid = tok.uuids[me_source.uuid]
     association = target.anchor.node(associationuuid)
+    assignxmiprops(memberend,source)
     associationend = AssociationEnd()
     associationend.association = association
     cla_source = source.refindex[source.attributes['type']]
@@ -166,6 +171,7 @@ def dependency(self, source, target):
     clientuuid = tok.uuids[client_source.uuid]
     client = target.anchor.node(clientuuid)
     dependency = Dependency()
+    assignxmiprops(dependency,source)
     dependency.client = client
     dependency.supplier = supplier
     target.anchor[str(dependency.uuid)] = dependency
