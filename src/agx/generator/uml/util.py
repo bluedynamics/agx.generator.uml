@@ -14,5 +14,7 @@ def isprofilemember(node):
     return False
 
 def assignxmiprops(node,source):
-    node.xminame=source.attributes['name']
+    if source.attributes.has_key('name'):
+        # XXX: failed on association, have a look.
+        node.xminame=source.attributes['name']
     node.xmiid=source.attributes['{http://schema.omg.org/spec/XMI/2.1}id']
