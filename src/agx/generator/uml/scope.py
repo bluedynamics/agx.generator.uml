@@ -65,7 +65,8 @@ class StereotypeScope(Scope):
         if not tok:
             return False
         for stdef in tok.defs.values():
-            if node.__name__.find(nsmapping[stdef['profile']]) != -1:
+            # XXX: nsmapping issue. potentially tilted
+            if node.__name__.find(nsmapping.get(stdef['profile'], '')) != -1:
                 return True
         return False
     
