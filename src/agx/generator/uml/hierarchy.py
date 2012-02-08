@@ -75,6 +75,8 @@ registerXMIScope('datatype', 'xmi2uml', tags, 'uml:DataType')
 def datatype(self, source, target):
     """Create datatypes.
     """
+    # XXX: discuss, if datatypes of profile are ignored, they are not available
+    #      in UML representation.
     if isprofilemember(source):
         return
     datatype = Datatype()
