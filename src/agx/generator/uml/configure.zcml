@@ -30,6 +30,16 @@
     name="stereotypegenerator"
     transform="xmi2uml"
     depends="datatypedependentgenerator"
+    description="Generate Stereotypes."
+  />
+  
+  <agx:generator
+    name="finalizegenerator"
+    transform="xmi2uml"
+    depends="stereotypegenerator"
+    targethandler="agx.core.TreeSyncPreperator"
+    description="Generate various. Supposed to be used to modify UML Tree by
+                 addon generators"
   />
 
 </configure>
