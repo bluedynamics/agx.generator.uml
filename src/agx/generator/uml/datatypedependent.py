@@ -110,6 +110,9 @@ def ownedend(self, source, target):
     associationend = AssociationEnd()
     assignxmiprops(associationend,source)
     associationend.association = association
+    # XXX: we the private uuid listing pointing to member ends. could
+    #      be simlified, read node.ext.uml.classes for details
+    association._memberEnds.append(associationend.uuid)
     cla_source = source.refindex[source.attributes['type']]
     classuuid = tok.uuids[cla_source.uuid]
     associationend.type = target.anchor.node(classuuid)
@@ -142,6 +145,9 @@ def memberend(self, source, target):
     assignxmiprops(memberend,source)
     associationend = AssociationEnd()
     associationend.association = association
+    # XXX: we the private uuid listing pointing to member ends. could
+    #      be simlified, read node.ext.uml.classes for details
+    association._memberEnds.append(associationend.uuid)
     cla_source = source.refindex[source.attributes['type']]
     classuuid = tok.uuids[cla_source.uuid]
     associationend.type = target.anchor.node(classuuid)
