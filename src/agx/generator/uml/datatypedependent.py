@@ -122,7 +122,12 @@ def ownedend(self, source, target):
     else:
         uppervalue = int(uppervalue)
     associationend.uppervalue = uppervalue
-    associationend.lowervalue = int(source['lowerValue'].attributes['value'])
+    lowervalue = source['lowerValue'].attributes.get('value', '*')
+    if lowervalue == '*':
+        lowervalue = INFINITE
+    else:
+        lowervalue = int(lowervalue)
+    associationend.lowervalue = lowervalue
     association[source.attributes['name']] = associationend
     target.finalize(source, associationend)
 
@@ -157,7 +162,12 @@ def memberend(self, source, target):
     else:
         uppervalue = int(uppervalue)
     associationend.uppervalue = uppervalue
-    associationend.lowervalue = int(source['lowerValue'].attributes['value'])
+    lowervalue = source['lowerValue'].attributes.get('value', '*')
+    if lowervalue == '*':
+        lowervalue = INFINITE
+    else:
+        lowervalue = int(lowervalue)
+    associationend.lowervalue = lowervalue
     target.anchor[source.attributes['name']] = associationend
     target.finalize(source, associationend)
 
