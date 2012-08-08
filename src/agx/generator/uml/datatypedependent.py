@@ -50,7 +50,11 @@ def property(self, source, target):
         tok = token('sourcetotargetuuidmapping', False)
         type = target.anchor.node(tok.uuids[typedef.uuid])
     else:
-        name = source['type'].attributes['href']
+        try:
+            name = source['type'].attributes['href']
+        except KeyError:
+            raise ValueError,'Property "%s" in class "%s" has no datatype!' % \
+                (source.element.get('name'),source.parent.element.get('name'))
         name = name[name.rfind('#') + 1:]
         tok = token('primitivetypemapping', False)
         type = target.anchor.node(tok.types[name])
@@ -59,6 +63,7 @@ def property(self, source, target):
 
     property.type = type
     target.anchor[source.attributes['name']] = property
+#    import pdb;pdb.set_trace()
     target.finalize(source, property)
 
 tags = [XMI2_1.OWNED_OPERATION]
