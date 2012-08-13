@@ -6,6 +6,7 @@ from agx.core import token
 from node.ext.uml.core import Stereotype
 from node.ext.uml.core import TaggedValue
 from configure import registerStereotypeScope
+import logging
 
 registerStereotypeScope('stereotype', 'xmi2uml')
 
@@ -21,7 +22,17 @@ def stereotype(self, source, target):
         return
     st_target = source.refindex[source.attributes[attrname]]
     tok = token('sourcetotargetuuidmapping', False)
-    targetuuid = tok.uuids[st_target.uuid]
+    try:
+        targetuuid = tok.uuids[st_target.uuid]
+    except KeyError:
+        #XXX Heuristics: if a stereotype has accidentially been
+        #assigned to the toplevel element, it doesnt work and should be ignored
+        if st_target.name.endswith('}Model'):
+            logging.warn('Error getting the stereotype on the top-level model (propably you have assigned a stereotype there, which should not be), ignoring it [agx.generator.uml.stereotypes, stereotype()]')
+            return
+        else:
+            raise
+        
     target = target.anchor.node(targetuuid)
     stereotype = Stereotype()
     stereotype.profile = target.root[source.ns_name]
