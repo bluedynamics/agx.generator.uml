@@ -54,11 +54,11 @@ def interface(self, source, target):
     target.finalize(source, interface)
 
 tags = [XMI2_1.IMPORTED_ELEMENT]
-registerXMIScope('primitivetype', 'xmi2uml', tags, 'uml:PrimitiveType')
+registerXMIScope('importedprimitivetype', 'xmi2uml', tags, 'uml:PrimitiveType')
 
-@handler('primitivetype', 'xmi2uml', 'hierarchygenerator', 'primitivetype')
-def primitivetype(self, source, target):
-    """Create datatypes out of primitivetypes.
+@handler('importedprimitivetype', 'xmi2uml', 'hierarchygenerator', 'importedprimitivetype')
+def importedprimitivetype(self, source, target):
+    """Create datatypes out of imported primitivetypes.
     """
     datatype = Datatype()
     name = source.attributes['href']
@@ -67,6 +67,21 @@ def primitivetype(self, source, target):
     tok.types[name] = datatype.uuid
     target.anchor[name] = datatype
     target.finalize(source, datatype)
+
+tags = [XMI2_1.PACKAGED_ELEMENT]
+registerXMIScope('primitivetype', 'xmi2uml', tags, 'uml:PrimitiveType')
+
+@handler('primitivetype', 'xmi2uml', 'hierarchygenerator', 'primitivetype')
+def primitivetype(self, source, target):
+    """Create datatypes out of primitivetypes.
+    """
+    datatype = Datatype()
+    name = source.attributes['name']
+    tok = token('primitivetypemapping', True, types={})
+    tok.types[name] = datatype.uuid
+    target.anchor[name] = datatype
+    target.finalize(source, datatype)
+
 
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('datatype', 'xmi2uml', tags, 'uml:DataType')
