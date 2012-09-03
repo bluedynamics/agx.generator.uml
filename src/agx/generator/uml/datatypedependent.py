@@ -161,6 +161,9 @@ def memberend(self, source, target):
     cla_source = source.refindex[source.attributes['type']]
     classuuid = tok.uuids[cla_source.uuid]
     associationend.type = target.anchor.node(classuuid)
+    associationend.aggregationkind=associationend.aggregationkind or \
+        source.element.attrib.get('aggregation')
+        
     uppervalue = source['upperValue'].attributes['value']
     if uppervalue == '*':
         uppervalue = INFINITE
