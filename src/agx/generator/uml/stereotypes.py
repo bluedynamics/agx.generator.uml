@@ -15,6 +15,7 @@ def stereotype(self, source, target):
     """Create stereotypes.
     """
     attrname = None
+    
     for key in source.attributes.keys():
         if key.startswith('base_'):
             attrname = key
@@ -46,3 +47,19 @@ def stereotype(self, source, target):
         taggedvalue = TaggedValue()
         taggedvalue.value = source.attributes[key]
         stereotype[key] = taggedvalue
+        
+    multivals={}
+    
+    #collect the multivalued stereotype props
+    for child in source.values():
+        key=child.element.tag
+        if not multivals.has_key(key):
+            multivals[key]=[]
+            
+        multivals[key].append(child.element.text.strip())
+        
+    for k,v in multivals.items():
+        tgv = TaggedValue()
+        tgv.value=v
+        stereotype[k]=tgv
+        
