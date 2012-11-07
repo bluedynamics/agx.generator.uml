@@ -39,7 +39,7 @@
     depends="stereotypegenerator"
     targethandler="agx.core.TreeSyncPreperator"
     description="Generate various. Supposed to be used to modify UML Tree by
-                 addon generators"
+                 add-on generators"
   />
 
 </configure>
