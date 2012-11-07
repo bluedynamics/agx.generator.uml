@@ -7,7 +7,7 @@
     name="profilegenerator"
     transform="xmi2uml"
     depends="NO"
-	description="Get some required informations from profile(s)."
+	description="Get some required information from profile(s)."
   />
   
   <agx:generator
