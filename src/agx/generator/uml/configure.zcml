@@ -15,7 +15,7 @@
     transform="xmi2uml"
     depends="profilegenerator"
     targethandler="agx.core.TreeSyncPreperator"
-	description="Generate hirarchical UML structure."
+    description="Generate hierarchical UML structure."
   />
   
   <agx:generator
@@ -23,7 +23,7 @@
     transform="xmi2uml"
     depends="profilegenerator"
     targethandler="agx.core.TreeSyncPreperator"
-	description="Generate UML Elements depending on DataTypes present."
+    description="Generate UML Elements depending on DataTypes present."
   />
   
   <agx:generator
