@@ -17,7 +17,7 @@ optionflags = doctest.NORMALIZE_WHITESPACE | \
               doctest.REPORT_ONLY_FIRST_FAILURE
 
 TESTFILES = [
-    '../generator.txt',
+    '../generator.rst',
 ]
 
 datadir = os.path.join(os.path.dirname(__file__), 'data')

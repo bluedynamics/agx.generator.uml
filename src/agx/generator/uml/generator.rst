@@ -1,10 +1,11 @@
 Test transform related generators
 =================================
 
+::
     >>> import os
     >>> modelpath = os.path.sep.join([datadir, 'examplegg.uml'])
     >>> profilepath = os.path.sep.join([datadir, 'pyegg.profile.uml'])
-  
+
     >>> from zope.component import getUtility
     >>> from agx.core.interfaces import ITransform
     >>> from agx.core import Processor
@@ -15,13 +16,13 @@ Test transform related generators
     ...                 transform.target('Model'))
     >>> uml
     <Model object 'Model' at ...>
-  
+
     >>> from agx.core import token
     >>> tok = token('stereotypedefinitions', False)
     >>> tok.defs
     {'pyegg': {'profile': 'pyegg', 'id': '...', 'name': 'pyegg'}, 
     'DecoratedClass': {'profile': 'pyegg', 'id': '...', 'name': 'DecoratedClass'}}
-  
+
     >>> uml.printtree()
     <class 'node.ext.uml.core.Model'>: Model
       <class 'node.ext.uml.core.Profile'>: pyegg
@@ -65,4 +66,3 @@ Test transform related generators
           <class 'node.ext.uml.classes.AssociationEnd'>: src
           <class 'node.ext.uml.classes.AssociationEnd'>: dst
         <class 'node.ext.uml.classes.Dependency'>: ...
-  
