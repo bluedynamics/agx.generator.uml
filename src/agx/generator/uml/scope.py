@@ -1,18 +1,18 @@
-# Copyright BlueDynamics Alliance - http://bluedynamics.com
-# GNU General Public License Version 2
-
 import types
-from zope.interface import implements
+from zope.interface import implementer
 from zope.component.interfaces import ComponentLookupError
-from agx.core import token
-from agx.core import Scope
+from agx.core import (
+    token,
+    Scope,
+)
 from node.ext.xml.interfaces import IXMLNode
 from interfaces import IXMLScope
 
+
+@implementer(IXMLScope)
 class XMLScope(Scope):
     """XML scope implementation.
     """
-    implements(IXMLScope)
 
     def __init__(self, name, tags):
         if not type(tags) == types.ListType:
@@ -27,10 +27,12 @@ class XMLScope(Scope):
                 return True
         return False
 
+
 class XMIScope(XMLScope):
     """XMI scope implementation.
-    
-    Derives from XMLScope and takes an additional type to check against the type
+
+    Derives from XMLScope and takes an additional type to check against the
+    type.
     """
 
     def __init__(self, name, tags, type):
@@ -49,12 +51,14 @@ class XMIScope(XMLScope):
                 return True
         return False
 
+
 class StereotypeScope(Scope):
     """Stereotype scope implementation.
     """
-    
-    def __init__(self): pass
-    
+
+    def __init__(self):
+        pass
+
     def __call__(self, node):
         if not IXMLNode.providedBy(node):
             return
@@ -68,21 +72,21 @@ class StereotypeScope(Scope):
             if node.__name__.find(nsmapping.get(stdef['profile'], '')) != -1:
                 return True
         return False
-    
+
     @property
     def _token(self):
         try:
             return token('stereotypedefinitions', False)
         except ComponentLookupError, e:
             return None
-    
+
     @property
     def _tokennamespaces(self):
         tok = self._token
         if not tok:
             return None
         return [stdef['profile'] for stdef in tok.defs.values()]
-    
+
     def _nsmapping(self, node):
         ret = dict()
         tokns = self._tokennamespaces

@@ -1,7 +1,5 @@
-# Copyright BlueDynamics Alliance - http://bluedynamics.com
-# GNU General Public License Version 2
-
 from agx.core import token
+
 
 def isprofilemember(node):
     while True:
@@ -13,8 +11,9 @@ def isprofilemember(node):
         node = node.__parent__
     return False
 
+
 def assignxmiprops(node,source):
     if source.attributes.has_key('name'):
         # XXX: failed on association, have a look.
-        node.xminame=source.attributes['name']
-    node.xmiid=source.attributes['{http://schema.omg.org/spec/XMI/2.1}id']
+        node.xminame = source.attributes['name']
+    node.xmiid = source.attributes['{http://schema.omg.org/spec/XMI/2.1}id']

@@ -1,45 +1,40 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:agx="http://namespaces.zope.org/agx">
-  
+
   <include package="agx.transform.xmi2uml" />
-  
+
   <agx:generator
     name="profilegenerator"
     transform="xmi2uml"
     depends="NO"
-	description="Get some required information from profile(s)."
-  />
-  
+	description="Get some required information from profile(s)." />
+
   <agx:generator
     name="hierarchygenerator"
     transform="xmi2uml"
     depends="profilegenerator"
     targethandler="agx.core.TreeSyncPreperator"
-    description="Generate hierarchical UML structure."
-  />
-  
+    description="Generate hierarchical UML structure." />
+
   <agx:generator
     name="datatypedependentgenerator"
     transform="xmi2uml"
     depends="profilegenerator"
     targethandler="agx.core.TreeSyncPreperator"
-    description="Generate UML Elements depending on DataTypes present."
-  />
-  
+    description="Generate UML Elements depending on DataTypes present." />
+
   <agx:generator
     name="stereotypegenerator"
     transform="xmi2uml"
     depends="datatypedependentgenerator"
-    description="Generate Stereotypes."
-  />
-  
+    description="Generate Stereotypes." />
+
   <agx:generator
     name="finalizegenerator"
     transform="xmi2uml"
     depends="stereotypegenerator"
     targethandler="agx.core.TreeSyncPreperator"
     description="Generate various. Supposed to be used to modify UML Tree by
-                 add-on generators"
-  />
+                 add-on generators" />
 
 </configure>

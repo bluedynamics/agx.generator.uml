@@ -1,8 +1,7 @@
-# Copyright BlueDynamics Alliance - http://bluedynamics.com
-# GNU General Public License Version 2
-
-from agx.core import handler
-from agx.core import token
+from agx.core import (
+    handler,
+    token,
+)
 from node.ext.uml.core import (
     Package,
     Datatype,
@@ -14,10 +13,15 @@ from node.ext.uml.classes import (
 )
 from agx.transform.xmi2uml.flavours import XMI2_1
 from configure import registerXMIScope
-from util import isprofilemember, assignxmiprops
+from util import (
+    isprofilemember,
+    assignxmiprops,
+)
+
 
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('package', 'xmi2uml', tags, 'uml:Package')
+
 
 @handler('package', 'xmi2uml', 'hierarchygenerator', 'package')
 def package(self, source, target):
@@ -28,8 +32,10 @@ def package(self, source, target):
     target.anchor[source.attributes['name']] = package
     target.finalize(source, package)
 
+
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('class', 'xmi2uml', tags, 'uml:Class')
+
 
 @handler('class', 'xmi2uml', 'hierarchygenerator', 'class')
 def class_(self, source, target):
@@ -40,8 +46,10 @@ def class_(self, source, target):
     target.anchor[source.attributes['name']] = class_
     target.finalize(source, class_)
 
+
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('interface', 'xmi2uml', tags, 'uml:Interface')
+
 
 @handler('interface', 'xmi2uml', 'hierarchygenerator', 'interface')
 def interface(self, source, target):
@@ -49,12 +57,13 @@ def interface(self, source, target):
     """
     interface = Interface()
     assignxmiprops(interface,source)
-
     target.anchor[source.attributes['name']] = interface
     target.finalize(source, interface)
 
+
 tags = [XMI2_1.IMPORTED_ELEMENT]
 registerXMIScope('importedprimitivetype', 'xmi2uml', tags, 'uml:PrimitiveType')
+
 
 @handler('importedprimitivetype', 'xmi2uml', 'hierarchygenerator', 'importedprimitivetype')
 def importedprimitivetype(self, source, target):
@@ -68,8 +77,10 @@ def importedprimitivetype(self, source, target):
     target.anchor[name] = datatype
     target.finalize(source, datatype)
 
+
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('primitivetype', 'xmi2uml', tags, 'uml:PrimitiveType')
+
 
 @handler('primitivetype', 'xmi2uml', 'hierarchygenerator', 'primitivetype')
 def primitivetype(self, source, target):
@@ -86,6 +97,7 @@ def primitivetype(self, source, target):
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('datatype', 'xmi2uml', tags, 'uml:DataType')
 
+
 @handler('datatype', 'xmi2uml', 'hierarchygenerator', 'datatype')
 def datatype(self, source, target):
     """Create datatypes.
@@ -98,8 +110,10 @@ def datatype(self, source, target):
     target.anchor[source.attributes['name']] = datatype
     target.finalize(source, datatype)
 
+
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('association', 'xmi2uml', tags, 'uml:Association')
+
 
 @handler('association', 'xmi2uml', 'hierarchygenerator', 'association')
 def association(self, source, target):

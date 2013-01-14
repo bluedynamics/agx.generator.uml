@@ -1,17 +1,20 @@
-# Copyright BlueDynamics Alliance - http://bluedynamics.com
-# GNU General Public License Version 2
-
-from agx.core import handler
-from agx.core import token
+from agx.core import (
+    handler,
+    token,
+)
 from agx.core.util import write_source_to_target_mapping
 from node.ext.xmi.interfaces import IXMINode
 from node.ext.uml.core import Profile
 from agx.transform.xmi2uml.flavours import XMI2_1
-from configure import registerXMLScope
-from configure import registerXMIScope
+from configure import (
+    registerXMLScope,
+    registerXMIScope,
+)
+
 
 tags = [XMI2_1.PROFILE]
 registerXMLScope('profile', 'xmi2uml', tags)
+
 
 @handler('profile', 'xmi2uml', 'profilegenerator', 'profile')
 def profile(self, source, target):
@@ -21,8 +24,10 @@ def profile(self, source, target):
     target.anchor.root[source.attributes['name']] = profile
     write_source_to_target_mapping(source, profile)
 
+
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('stereotypedef', 'xmi2uml', tags, 'uml:Stereotype')
+
 
 @handler('stereotypetokenizer', 'xmi2uml', 'profilegenerator', 'stereotypedef')
 def stereotypetokenizer(self, source, target):

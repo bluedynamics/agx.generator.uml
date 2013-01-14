@@ -1,8 +1,7 @@
-# Copyright BlueDynamics Alliance - http://bluedynamics.com
-# GNU General Public License Version 2
-
-from agx.core import handler
-from agx.core import token
+from agx.core import (
+    handler,
+    token,
+)
 from node.ext.uml.core import INFINITE
 from node.ext.uml.classes import (
     Property,
@@ -14,10 +13,15 @@ from node.ext.uml.classes import (
     InterfaceRealization,
 )
 from agx.transform.xmi2uml.flavours import XMI2_1
-from configure import registerXMLScope
-from configure import registerXMIScope
-from util import isprofilemember, assignxmiprops
-from pdb import Pdb
+from configure import (
+    registerXMLScope,
+    registerXMIScope,
+)
+from util import (
+    isprofilemember,
+    assignxmiprops,
+)
+
 
 @handler('anchorpackage', 'xmi2uml',
          'datatypedependentgenerator',
@@ -33,8 +37,10 @@ def anchor(self, source, target):
     """
     target.finalize(source, target.anchor[source.attributes['name']])
 
+
 tags = [XMI2_1.OWNED_ATTRIBUTE]
 registerXMLScope('property', 'xmi2uml', tags)
+
 
 @handler('property', 'xmi2uml', 'datatypedependentgenerator',
          'property', order=20)
@@ -63,11 +69,12 @@ def property(self, source, target):
 
     property.type = type
     target.anchor[source.attributes['name']] = property
-#    import pdb;pdb.set_trace()
     target.finalize(source, property)
+
 
 tags = [XMI2_1.OWNED_OPERATION]
 registerXMLScope('operation', 'xmi2uml', tags)
+
 
 @handler('operation', 'xmi2uml', 'datatypedependentgenerator',
          'operation', order=20)
@@ -79,8 +86,10 @@ def operation(self, source, target):
     target.anchor[source.attributes['name']] = operation
     target.finalize(source, operation)
 
+
 tags = [XMI2_1.OWNED_PARAMETER]
 registerXMLScope('parameter', 'xmi2uml', tags)
+
 
 @handler('parameter', 'xmi2uml', 'datatypedependentgenerator',
          'parameter', order=20)
@@ -98,8 +107,10 @@ def parameter(self, source, target):
     target.anchor[str(source.uuid)] = parameter
     target.finalize(source, parameter)
 
+
 tags = [XMI2_1.OWNED_END]
 registerXMLScope('ownedend', 'xmi2uml', tags)
+
 
 @handler('ownedend', 'xmi2uml', 'datatypedependentgenerator',
          'ownedend', order=20)
@@ -136,8 +147,10 @@ def ownedend(self, source, target):
     association[source.attributes['name']] = associationend
     target.finalize(source, associationend)
 
+
 tags = [XMI2_1.OWNED_ATTRIBUTE]
 registerXMLScope('memberend', 'xmi2uml', tags)
+
 
 @handler('memberend', 'xmi2uml', 'datatypedependentgenerator',
          'memberend', order=20)
@@ -163,7 +176,7 @@ def memberend(self, source, target):
     associationend.type = target.anchor.node(classuuid)
     associationend.aggregationkind=associationend.aggregationkind or \
         source.element.attrib.get('aggregation')
-        
+
     uppervalue = source['upperValue'].attributes['value']
     if uppervalue == '*':
         uppervalue = INFINITE
@@ -179,8 +192,10 @@ def memberend(self, source, target):
     target.anchor[source.attributes['name']] = associationend
     target.finalize(source, associationend)
 
+
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('dependency', 'xmi2uml', tags, 'uml:Dependency')
+
 
 @handler('dependency', 'xmi2uml', 'datatypedependentgenerator',
          'dependency', order=20)
@@ -201,8 +216,10 @@ def dependency(self, source, target):
     target.anchor[str(dependency.uuid)] = dependency
     target.finalize(source, dependency)
 
+
 tags = [XMI2_1.GENERALIZATION]
 registerXMLScope('generalization', 'xmi2uml', tags)
+
 
 @handler('generalization', 'xmi2uml', 'datatypedependentgenerator',
          'generalization', order=20)
@@ -222,8 +239,10 @@ def generalization(self, source, target):
     container[str(generalization.uuid)] = generalization
     target.finalize(source, generalization)
 
+
 tags = [XMI2_1.INTERFACE_REALIZATION]
 registerXMLScope('interfacerealization', 'xmi2uml', tags)
+
 
 @handler('interfacerealization', 'xmi2uml', 'datatypedependentgenerator',
          'interfacerealization', order=20)
