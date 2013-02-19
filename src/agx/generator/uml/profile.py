@@ -12,7 +12,8 @@ from configure import (
 )
 
 
-tags = [XMI2_1.PROFILE]
+tags = XMI2_1.PROFILES
+#XXX: sould be implemented, so that regexps are supported
 registerXMLScope('profile', 'xmi2uml', tags)
 
 

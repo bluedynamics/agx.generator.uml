@@ -46,6 +46,7 @@ class XMIScope(XMLScope):
                 tagmatches = True
                 break
         if tagmatches:
+            #XXX:move to XMI Flavor
             name = '{http://schema.omg.org/spec/XMI/2.1}type'
             if node.attributes.get(name) == self.type:
                 return True

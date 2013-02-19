@@ -11,7 +11,7 @@ from configure import registerStereotypeScope
 
 
 registerStereotypeScope('stereotype', 'xmi2uml')
-
+from agx.transform.xmi2uml.flavours import XMI2_1
 
 @handler('stereotype', 'xmi2uml', 'stereotypegenerator', 'stereotype')
 def stereotype(self, source, target):
@@ -47,8 +47,7 @@ def stereotype(self, source, target):
                       source.__name__[source.__name__.rfind('}') + 1:])
     target[name] = stereotype
     for key in source.attributes.keys():
-        if key.startswith('base_') \
-          or key == '{http://schema.omg.org/spec/XMI/2.1}id':
+        if key.startswith('base_') or XMI2_1.is_profile(key):
             continue
         taggedvalue = TaggedValue()
         taggedvalue.value = source.attributes[key]

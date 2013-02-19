@@ -1,13 +1,15 @@
 from agx.core import token
 
+from agx.transform.xmi2uml.flavours import XMI2_1
 
 def isprofilemember(node):
     while True:
         if node is None:
             return False
-        tag = '{http://www.eclipse.org/uml2/3.0.0/UML}Profile'
-        if node.__name__.endswith(tag):
+        
+        if XMI2_1.is_profile(node.__name__):
             return True
+            
         node = node.__parent__
     return False
 
