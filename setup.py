@@ -5,9 +5,10 @@ from setuptools import (
 )
 
 
-version = '1.0'
-shortdesc ="AGX Generator for UML Nodes"
+version = '1.0a1'
+shortdesc = "AGX generator for UML nodes"
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+longdesc += open(os.path.join(os.path.dirname(__file__), 'LICENSE.rst')).read()
 
 
 setup(name='agx.generator.uml',
@@ -17,13 +18,12 @@ setup(name='agx.generator.uml',
       classifiers=[
           'Development Status :: 3 - Alpha',
           'License :: OSI Approved :: GNU General Public License (GPL)',
-          'Operating System :: OS Independent',
           'Programming Language :: Python', 
       ],
-      keywords='AGX, Code Generator, UML',
+      keywords='AGX, Code Generator',
       author='BlueDynamics Alliance',
       author_email='dev@bluedynamics.com',
-      url=u'https://svn.plone.org/svn/archetypes/AGX',
+      url=u'http://github.com/bluedynamics/agx.generator.uml',
       license='GNU General Public Licence',
       packages=find_packages('src'),
       package_dir={'': 'src'},

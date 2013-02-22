@@ -1,4 +1,9 @@
+This Package is part of **AGX**. See `<http://agx.me>`_ for Details.
 
-Run agx with pyegg test model:
+Changes
+=======
 
-./bin/agx -o outpath dev/agx.generator.pyegg/examplemodel/example_egg.uml
+1.0a1
+-----
+
+- initial release
