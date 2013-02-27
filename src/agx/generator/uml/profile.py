@@ -5,14 +5,14 @@ from agx.core import (
 from agx.core.util import write_source_to_target_mapping
 from node.ext.xmi.interfaces import IXMINode
 from node.ext.uml.core import Profile
-from agx.transform.xmi2uml.flavours import XMI2_1
+from agx.transform.xmi2uml.flavours import get_active_flavour
 from configure import (
     registerXMLScope,
     registerXMIScope,
 )
 
 
-tags = XMI2_1.PROFILES
+tags = get_active_flavour().profiles()
 #XXX: sould be implemented, so that regexps are supported
 registerXMLScope('profile', 'xmi2uml', tags)
 
@@ -26,7 +26,7 @@ def profile(self, source, target):
     write_source_to_target_mapping(source, profile)
 
 
-tags = [XMI2_1.PACKAGED_ELEMENT]
+tags = [get_active_flavour().PACKAGED_ELEMENT]
 registerXMIScope('stereotypedef', 'xmi2uml', tags, 'uml:Stereotype')
 
 
@@ -41,8 +41,9 @@ def stereotypetokenizer(self, source, target):
             break
         profilexml = next
     profile = profilexml.values()[0].attributes['name']
+    
     defs = {
-        'id': source.attributes['{http://schema.omg.org/spec/XMI/2.1}id'],
+        'id': source.attributes['{%s}id' % source.namespaces['xmi']],
         'name': source.attributes['name'],
         'profile': profile,
     }

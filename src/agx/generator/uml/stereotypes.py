@@ -11,7 +11,7 @@ from configure import registerStereotypeScope
 
 
 registerStereotypeScope('stereotype', 'xmi2uml')
-from agx.transform.xmi2uml.flavours import XMI2_1
+from agx.transform.xmi2uml.flavours import active_flavour
 
 @handler('stereotype', 'xmi2uml', 'stereotypegenerator', 'stereotype')
 def stereotype(self, source, target):
@@ -25,6 +25,7 @@ def stereotype(self, source, target):
         return
 
     st_target = source.refindex[source.attributes[attrname]]
+        
     tok = token('sourcetotargetuuidmapping', False)
     try:
         targetuuid = tok.uuids[st_target.uuid]
@@ -47,7 +48,7 @@ def stereotype(self, source, target):
                       source.__name__[source.__name__.rfind('}') + 1:])
     target[name] = stereotype
     for key in source.attributes.keys():
-        if key.startswith('base_') or XMI2_1.is_profile(key):
+        if key.startswith('base_') or active_flavour().is_profile(key):
             continue
         taggedvalue = TaggedValue()
         taggedvalue.value = source.attributes[key]

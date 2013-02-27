@@ -7,6 +7,7 @@ from agx.core import (
 )
 from node.ext.xml.interfaces import IXMLNode
 from interfaces import IXMLScope
+from agx.transform.xmi2uml.flavours import get_active_flavour
 
 
 @implementer(IXMLScope)
@@ -47,9 +48,11 @@ class XMIScope(XMLScope):
                 break
         if tagmatches:
             #XXX:move to XMI Flavor
-            name = '{http://schema.omg.org/spec/XMI/2.1}type'
-            if node.attributes.get(name) == self.type:
-                return True
+            
+            for ns in get_active_flavour().XMI_NS_ALT:
+                name = '{%s}type' % ns
+                if node.attributes.get(name) == self.type:
+                    return True
         return False
 
 
