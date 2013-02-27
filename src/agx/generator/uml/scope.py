@@ -47,12 +47,10 @@ class XMIScope(XMLScope):
                 tagmatches = True
                 break
         if tagmatches:
-            #XXX:move to XMI Flavor
+            name = '{%s}type' % node.namespaces['xmi']
+            if node.attributes.get(name) == self.type:
+                return True
             
-            for ns in get_active_flavour().XMI_NS_ALT:
-                name = '{%s}type' % ns
-                if node.attributes.get(name) == self.type:
-                    return True
         return False
 
 
