@@ -10,6 +10,7 @@ from node.ext.uml.classes import (
     Class,
     Interface,
     Association,
+    AssociationClass,
 )
 from agx.transform.xmi2uml.flavours import XMI2_1
 from configure import registerXMIScope
@@ -42,10 +43,10 @@ def class_(self, source, target):
     """Create classes.
     """
     class_ = Class()
+#    import pdb;pdb.set_trace()
     assignxmiprops(class_,source)
     target.anchor[source.attributes['name']] = class_
     target.finalize(source, class_)
-
 
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('interface', 'xmi2uml', tags, 'uml:Interface')
@@ -125,3 +126,23 @@ def association(self, source, target):
     assignxmiprops(association,source)
     target.anchor[str(association.uuid)] = association
     target.finalize(source, association)
+
+tags = [XMI2_1.PACKAGED_ELEMENT]
+registerXMIScope('associationclass', 'xmi2uml', tags, 'uml:AssociationClass')
+
+
+@handler('associationclass', 'xmi2uml', 'hierarchygenerator', 'associationclass')
+def associationclass(self, source, target):
+    """Create association classes.
+    """
+    if isprofilemember(source):
+        return
+    association = AssociationClass()
+#    association = Class()
+    assignxmiprops(association,source)
+    import pdb;pdb.set_trace()
+    target.anchor[str(association.uuid)] = association
+    target.anchor[source.attributes['name']] = association
+    target.finalize(source, association)
+
+    

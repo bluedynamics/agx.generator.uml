@@ -82,6 +82,7 @@ def operation(self, source, target):
     """Create operation.
     """
     operation = Operation()
+    import pdb;pdb.set_trace()
     assignxmiprops(operation,source)
     target.anchor[source.attributes['name']] = operation
     target.finalize(source, operation)
@@ -161,6 +162,7 @@ def memberend(self, source, target):
         return
     if source.attributes.get('association', None) is None:
         return
+    
     me_source = source.refindex[source.attributes['association']]
     tok = token('sourcetotargetuuidmapping', False)
     associationuuid = tok.uuids[me_source.uuid]
