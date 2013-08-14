@@ -82,7 +82,6 @@ def operation(self, source, target):
     """Create operation.
     """
     operation = Operation()
-    import pdb;pdb.set_trace()
     assignxmiprops(operation,source)
     target.anchor[source.attributes['name']] = operation
     target.finalize(source, operation)
@@ -178,7 +177,6 @@ def memberend(self, source, target):
     associationend.type = target.anchor.node(classuuid)
     associationend.aggregationkind=associationend.aggregationkind or \
         source.element.attrib.get('aggregation')
-
     uppervalue = source['upperValue'].attributes['value']
     if uppervalue == '*':
         uppervalue = INFINITE

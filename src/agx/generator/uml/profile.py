@@ -13,7 +13,7 @@ from configure import (
 
 
 tags = get_active_flavour().profiles()
-#XXX: sould be implemented, so that regexps are supported
+#XXX: should be implemented, so that regexps are supported
 registerXMLScope('profile', 'xmi2uml', tags)
 
 

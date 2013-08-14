@@ -43,10 +43,10 @@ def class_(self, source, target):
     """Create classes.
     """
     class_ = Class()
-#    import pdb;pdb.set_trace()
     assignxmiprops(class_,source)
     target.anchor[source.attributes['name']] = class_
     target.finalize(source, class_)
+
 
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('interface', 'xmi2uml', tags, 'uml:Interface')
@@ -123,9 +123,10 @@ def association(self, source, target):
     if isprofilemember(source):
         return
     association = Association()
-    assignxmiprops(association,source)
+    assignxmiprops(association, source)
     target.anchor[str(association.uuid)] = association
     target.finalize(source, association)
+
 
 tags = [XMI2_1.PACKAGED_ELEMENT]
 registerXMIScope('associationclass', 'xmi2uml', tags, 'uml:AssociationClass')
@@ -137,12 +138,8 @@ def associationclass(self, source, target):
     """
     if isprofilemember(source):
         return
-    association = AssociationClass()
-#    association = Class()
-    assignxmiprops(association,source)
+    association_class = AssociationClass()
+    assignxmiprops(association_class, source)
+    target.anchor[source.attributes['name']] = association_class
     import pdb;pdb.set_trace()
-    target.anchor[str(association.uuid)] = association
-    target.anchor[source.attributes['name']] = association
-    target.finalize(source, association)
-
-    
+    target.finalize(source, association_class)
