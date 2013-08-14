@@ -141,5 +141,4 @@ def associationclass(self, source, target):
     association_class = AssociationClass()
     assignxmiprops(association_class, source)
     target.anchor[source.attributes['name']] = association_class
-    import pdb;pdb.set_trace()
     target.finalize(source, association_class)

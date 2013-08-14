@@ -29,6 +29,9 @@ from util import (
 @handler('anchorclass', 'xmi2uml',
          'datatypedependentgenerator',
          'class', order=10)
+@handler('anchorassociationclass', 'xmi2uml',
+         'datatypedependentgenerator',
+         'associationclass', order=10)
 @handler('anchorinterface', 'xmi2uml',
          'datatypedependentgenerator',
          'interface', order=10)

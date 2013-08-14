@@ -19,7 +19,7 @@
   <agx:generator
     name="datatypedependentgenerator"
     transform="xmi2uml"
-    depends="profilegenerator"
+    depends="hierarchygenerator"
     targethandler="agx.core.TreeSyncPreperator"
     description="Generate UML Elements depending on DataTypes present." />
 
