@@ -135,13 +135,13 @@ def ownedend(self, source, target):
     cla_source = source.refindex[source.attributes['type']]
     classuuid = tok.uuids[cla_source.uuid]
     associationend.type = target.anchor.node(classuuid)
-    uppervalue = source['upperValue'].attributes['value']
+    uppervalue = source['upperValue'].attributes['value'] if source.has_key('uppervalue') else '*'
     if uppervalue == '*':
         uppervalue = INFINITE
     else:
         uppervalue = int(uppervalue)
     associationend.uppervalue = uppervalue
-    lowervalue = source['lowerValue'].attributes.get('value', '*')
+    lowervalue = source['lowerValue'].attributes.get('value', '*')  if source.has_key('lowervalue') else 1
     if lowervalue == '*':
         lowervalue = INFINITE
     else:
@@ -180,13 +180,13 @@ def memberend(self, source, target):
     associationend.type = target.anchor.node(classuuid)
     associationend.aggregationkind=associationend.aggregationkind or \
         source.element.attrib.get('aggregation')
-    uppervalue = source['upperValue'].attributes['value']
+    uppervalue = source['upperValue'].attributes['value'] if source.has_key('uppervalue') else '*'
     if uppervalue == '*':
         uppervalue = INFINITE
     else:
         uppervalue = int(uppervalue)
     associationend.uppervalue = uppervalue
-    lowervalue = source['lowerValue'].attributes.get('value', '*')
+    lowervalue = source['lowerValue'].attributes.get('value', '*') if source.has_key('lowervalue') else 1
     if lowervalue == '*':
         lowervalue = INFINITE
     else:
