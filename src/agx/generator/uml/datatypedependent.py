@@ -120,6 +120,7 @@ registerXMLScope('ownedend', 'xmi2uml', tags)
 def ownedend(self, source, target):
     """Create owned end.
     """
+
     if isprofilemember(source):
         return
     oe_source = source.refindex[source.attributes['association']]
@@ -129,12 +130,17 @@ def ownedend(self, source, target):
     associationend = AssociationEnd()
     assignxmiprops(associationend,source)
     associationend.association = association
+    associationend.aggregationkind=associationend.aggregationkind or \
+        source.element.attrib.get('aggregation')
+
     # XXX: we the private uuid listing pointing to member ends. could
     #      be simlified, read node.ext.uml.classes for details
     association._memberEnds.append(associationend.uuid)
     cla_source = source.refindex[source.attributes['type']]
     classuuid = tok.uuids[cla_source.uuid]
     associationend.type = target.anchor.node(classuuid)
+
+    # XXX: correctly parse uppervalue for association ends
     uppervalue = source['upperValue'].attributes['value'] if source.has_key('uppervalue') else '*'
     if uppervalue == '*':
         uppervalue = INFINITE
